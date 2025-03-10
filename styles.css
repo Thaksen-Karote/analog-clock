@@ -1,0 +1,909 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #ffffff;
+    margin: 0;
+}
+
+/* ANALOG CLOCK START */
+.clock {
+    margin-left: 5%;
+    width: 40vw;
+    height: 40vw;
+    max-width: 300px; /* Prevent too large on desktops */
+    max-height: 300px;
+    border: 20px solid rgb(47, 29, 29);
+    border-radius: 500%;
+    position: relative;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(104, 90, 90, 100);
+    background: rgb(241, 229, 229);
+}
+
+.clock-face {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform: translateY(-3px); 
+}
+
+.hand {
+    border-radius: 50px;
+    width: 50%;
+    background: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: left;
+    transform: rotate(0deg);
+    transition: all 0.05s;
+    transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+    
+}
+
+.hour-hand { 
+    height: 6px;
+    width: 25%;
+    /* background: linear-gradient(to right, #444, #222);
+    box-shadow: 0px 0px 20px rgba(63, 60, 60, 0.7); */
+}
+.minute-hand { 
+    height: 4px;
+    width: 32%;
+    /* background: linear-gradient(to right, #666, #333); 
+    box-shadow: 0px 0px 20px rgba(31, 30, 30, 0.7);  */
+}
+.second-hand { 
+    height: 2px; 
+    width: 40%;
+    background: linear-gradient(to right, red, darkred);
+    /* box-shadow: 0px 0px 8px rgba(255, 0, 0, 0.7); */
+}
+
+
+
+.center-dot {
+    width: 15px; /* Dot size */
+    height: 15px;
+    background: black;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /*perfectly adjust at centre */
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5); 
+    transition: background-color 0.5s ease;
+    z-index: 10;
+}
+
+.number {
+    position: absolute;
+    font-size: min(4vw, 18px);;
+    font-weight: bold;
+    font-family: Arial,;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* This is crucial - center the numbers properly */
+    transform: translate(-50%, -50%);
+    border-radius: 50px; /* Smooth edges */
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3); /* 3D look */
+}
+
+/* Positioning the numbers evenly around the clock in a perfect circle */
+.number1  { top: 15%; left: 70%; }
+.number2  { top: 30%; left: 84%; }
+.number3  { top: 50%; left: 90%; }
+.number4  { top: 70%; left: 84%; }
+.number5  { top: 85%; left: 70%; }
+.number6  { top: 90%; left: 50%; }
+.number7  { top: 85%; left: 30%; }
+.number8  { top: 70%; left: 16%; }
+.number9  { top: 50%; left: 10%; }
+.number10 { top: 30%; left: 16%; }
+.number11 { top: 15%; left: 30%; }
+.number12 { top: 10%; left: 50%; }
+
+/* ANALOG CLOCK START */
+button {
+    padding: 10px 15px;
+    font-size: min(4vw, 16px);
+}
+
+/* DIGITAL CLOCK START */
+.digital-clock {
+    margin-top: 80px;
+    font-size: min(5vw, 30px);
+    width: 330px;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'Arial',;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+/* DIGITAL CLOCK END */
+
+@media (max-width: 600px) {
+    .clock {
+        width: 60vw;
+        height: 60vw;
+    }
+
+    .digital-clock {
+        font-size: 20px;
+    }
+
+    .theme-selector, .time-zones-container {
+        position: static;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* .alarm-container, .stopwatch-container, .timer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+} */
+
+/* ALARM START */
+.alarm-container {
+    margin-top: 20px;
+    margin-left: 3%;
+    padding: 15px;
+    border: 8px solid #000000;
+    border-radius: 10px;
+    background-color: #aea7a752;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
+    text-align: center;
+    transition: all 0.5s ease;
+}
+
+ /* Theme-specific alarm container styling */
+ .theme-dark .alarm-container, .theme-dark .stopwatch-container, .theme-dark .timer-container{
+    background-color: #333;
+    color: #f5f5f5;
+    border-color: #555;
+}
+.theme-dark .number{
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.3);
+}
+
+.theme-purple .alarm-container, .theme-purple .stopwatch-container, .theme-purple .timer-container {
+    background-color: #f3e5f5;
+    border-color: #6a1b9a;
+}
+
+.theme-wood .alarm-container, .theme-wood .stopwatch-container, .theme-wood .timer-container {
+    background-color: #efebe9;
+    border-color: #5d4037;
+}
+
+.alarm-container select, .alarm-container button {
+    margin: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+/* Default (Classic) theme buttons */
+.alarm-container button {
+    cursor: pointer;
+    background-color: #aaacaaf6;
+    color: white;
+    border: none;
+}
+
+.alarm-container button:hover {
+    background-color: #000000;
+}
+
+#cancel-alarm {
+    background-color: #f44336;
+}
+
+#cancel-alarm:hover {
+    background-color: #d32f2f;
+}
+
+/* Dark theme buttons */
+.theme-dark .alarm-container button {
+    background-color: #6c6c6c;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(46, 125, 50, 0.5);
+}
+.theme-dark .stopwatch-container button, 
+.theme-dark .timer-container button{
+    background-color: #6c6c6c;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(46, 125, 50, 0.5);
+}
+
+.theme-dark .alarm-container button:hover, .theme-dark .stopwatch-container button:hover, .theme-dark .timer-container button:hover{
+    background-color: #bababa;
+}
+
+.theme-dark #cancel-alarm, .theme-dark #reset-stopwatch , .theme-dark #reset-timer  {
+    background-color: #c62828;
+    box-shadow: 0 0 8px rgba(198, 40, 40, 0.5);
+}
+
+.theme-dark #cancel-alarm:hover, .theme-dark #reset-stopwatch:hover, .theme-dark #reset-timer:hover {
+    background-color: #d32f2f;
+}
+
+
+
+/* Purple theme buttons */
+.theme-purple .alarm-container button, .theme-purple .stopwatch-container button, .theme-purple .timer-container button {
+    background-color: #7B1FA2;
+    color: white;
+}
+
+.theme-purple .alarm-container button:hover, .theme-purple .stopwatch-container button:hover, .theme-purple .timer-container button:hover {
+    background-color: #45066c;
+}
+
+.theme-purple #cancel-alarm, .theme-purple #reset-stopwatch, .theme-purple #reset-timer {
+    background-color: #E53935;
+}
+
+.theme-purple #cancel-alarm:hover, .theme-purple #reset-stopwatch:hover, .theme-purple #reset-timer:hover {
+    background-color: #D32F2F;
+}
+
+/* Wood theme buttons */
+.theme-wood .alarm-container button, .theme-wood .stopwatch-container button, .theme-wood .timer-container button {
+    background-color: #795548;
+    color: white;
+}
+
+.theme-wood .alarm-container button:hover,.theme-wood .stopwatch-container button:hover,.theme-wood .timer-container button:hover {
+    background-color: #5c1b05;
+}
+
+.theme-wood #cancel-alarm, .theme-wood #reset-stopwatch, .theme-wood #reset-timer  {
+    background-color: #D32F2F;
+}
+
+.theme-wood #cancel-alarm:hover, .theme-wood #reset-stopwatch:hover, .theme-wood #reset-timer:hover {
+    background-color: #C62828;
+}
+/* ALARM END */
+
+/* THEME START */
+.theme-selector {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.theme-selector h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.theme-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.theme-button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.theme-button:hover {
+    transform: scale(1.15);
+}
+
+.theme-button.active {
+    border: 2px solid #333;
+    transform: scale(1.15);
+}
+
+/* Theme color samples */
+.theme-classic { background: linear-gradient(135deg, #e6e6e6, #ffffff); }
+.theme-dark { background: linear-gradient(135deg, #333333, #121212); }
+.theme-purple { background: linear-gradient(135deg, #4a148c, #ce93d8); }
+.theme-wood { background: linear-gradient(135deg, #8d6e63, #d7ccc8); }
+.theme-sunset { background: linear-gradient(135deg, #ff9966, #ff5e62, #6441a5); }
+.theme-ocean { background: linear-gradient(135deg, #48c6ef, #6f86d6, #3949ab); }
+.theme-forest { background: linear-gradient(135deg,  #a8e063, #56ab2f, #2e7d32); }
+.theme-neon { background: linear-gradient(135deg, #00e5ff); }
+.theme-neumorphic { background: linear-gradient(135deg, rgba(163, 177, 198, 0.6),  rgba(255, 255, 255, 0.5), #505a6c); }
+.theme-brushed-metal { background: linear-gradient(135deg,   #CCC 0%, #EEE 10%, #DDD 20%, #CCC 30%, #EEE 40%, #DDD 50%, #CCC 60%, #EEE 70%, #DDD 80%, #CCC 90%, #EEE 100%); }
+.theme-winter { background: linear-gradient(135deg); }
+
+/* Theme-specific clock styling */
+.clock.theme-classic {
+    border-color: #333;
+    background: #f5f5f5;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+.theme-classic .time-zone-button:hover {
+    background-color: #6c6c6c;
+    border-color: #ccc;
+    transform: scale(1.06);
+    color: rgb(255, 253, 253);
+  }
+  
+ .theme-classic .time-zone-button.active {
+    background-color:#000000;
+    color: #fff;
+    border-color: #000000;
+  }
+
+.clock.theme-dark {
+    border-color: #555;
+    background: #212121;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    color: #ffffff; 
+}
+.theme-dark .time-zone-button:hover {
+    background-color: #ffffff;
+    border-color: #ccc;
+    transform: scale(1.06);
+    color: rgb(0, 0, 0);
+  }
+  
+ .theme-dark .time-zone-button.active {
+    background-color:#000000;
+    color: #fff;
+    border-color: #000000;
+  }
+
+.clock.theme-purple {
+    border-color: #6a1b9a;
+    background: linear-gradient(135deg, #e1bee7, #f3e5f5);
+    box-shadow: 0 0 20px rgba(106, 27, 154, 0.3);
+}
+.theme-purple .time-zone-button:hover {
+    background-color: #e1bee7;
+    border-color: #ccc;
+    transform: scale(1.06);
+    color: rgb(0, 0, 0);
+  }
+  
+ .theme-purple .time-zone-button.active {
+    background-color:#6a1b9a;
+    color: #fff;
+    border-color: #6a1b9a;
+  }
+
+.clock.theme-wood {
+    border-color: #5d4037;
+    background: linear-gradient(135deg, #d7ccc8, #efebe9);
+    box-shadow: 0 0 20px rgba(93, 64, 55, 0.3);
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.1"><rect width="100" height="100" fill="none" stroke="%23795548" stroke-width="1"/></svg>');
+}
+.theme-wood .time-zone-button:hover {
+    background-color: #d7ccc8;
+    border-color: #ccc;
+    transform: scale(1.06);
+    color: rgb(0, 0, 0);
+  }
+  
+ .theme-wood .time-zone-button.active {
+    background-color:#5d4037;
+    color: #fff;
+    border-color: #5d4037;
+  }
+
+/* Theme-specific hand styling */
+.theme-dark .hand {
+    background: #f5f5f5;
+    border-radius: 50px;
+}
+
+.theme-dark .second-hand {
+    background: linear-gradient(to right, red, darkred);
+}
+
+.theme-purple .hour-hand, .theme-purple .minute-hand {
+    background: #6a1b9a;
+}
+
+.theme-purple .second-hand {
+    background: linear-gradient(to right, red, darkred);
+}
+
+.theme-wood .hour-hand, .theme-wood .minute-hand {
+    background: #5d4037;
+}
+
+.theme-wood .second-hand {
+    background: linear-gradient(to right, red, darkred);
+}
+
+.theme-dark .center-dot {
+    background: #f5f5f5;
+}
+
+.theme-purple .center-dot {
+    background: #6a1b9a;
+}
+
+.theme-wood .center-dot {
+    background: #5d4037;
+}
+
+/* Sunset Gradient */
+.clock.theme-sunset {
+    background: linear-gradient(135deg, #ff9966, #ff5e62, #6441a5);
+    border-color: #ff9966;
+    color: white;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.theme-sunset .alarm-container, .theme-sunset .stopwatch-container, .theme-sunset .timer-container{
+    border-color: #ff5e62;
+}
+
+.theme-sunset .alarm-container button, .theme-sunset .stopwatch-container button, .theme-sunset .timer-container button {
+    background: linear-gradient(135deg, #ff5e62, #6441a5);
+    color: white;
+}
+
+.theme-sunset .alarm-container button:hover, .theme-sunset .stopwatch-container button:hover, .theme-sunset .timer-container button:hover {
+    background: linear-gradient(135deg, #ff5e62, #5d3b96);
+}
+
+.theme-sunset #cancel-alarm,.theme-sunset #reset-stopwatch, .theme-sunset #reset-timer  {
+    background: linear-gradient(135deg, #ff4757, #c23616);
+}
+
+.theme-sunset #cancel-alarm:hover,.theme-sunset #reset-stopwatch:hover, .theme-sunset #reset-timer:hover {
+    background: linear-gradient(135deg, #ff4757, #b33213);
+}
+.theme-sunset .center-dot{
+    background: #ff4757;
+}
+.theme-sunset .time-zone-button:hover {
+    background-color: #ff9966;
+    border-color: #ccc;
+    transform: scale(1.06);
+    color: rgb(0, 0, 0);
+  }
+  
+ .theme-sunset .time-zone-button.active {
+    background-color:#6441a5;
+    color: #fff;
+    border-color: #6441a5;
+  }
+/* Ocean Gradient */
+.clock.theme-ocean {
+    background: linear-gradient(135deg, #48c6ef, #6f86d6, #3949ab);
+    border-color: #48c6ef;
+    color: white;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.theme-ocean .alarm-container, .theme-ocean .stopwatch-container, .theme-ocean .timer-container{
+    border-color: #6f86d6;
+}
+.theme-ocean .alarm-container button, .theme-ocean .stopwatch-container button, .theme-ocean .timer-container button {
+    background: linear-gradient(135deg, #48c6ef, #3949ab);
+    color: white;
+}
+
+.theme-ocean .alarm-container button:hover, .theme-ocean .stopwatch-container button:hover, .theme-ocean .timer-container button:hover {
+    background: linear-gradient(135deg, #48c6ef, #32409a);
+}
+
+.theme-ocean #cancel-alarm, .theme-ocean #reset-stopwatch, .theme-ocean #reset-timer{
+    background: linear-gradient(135deg, #ff4757, #c23616);
+}
+
+.theme-ocean #cancel-alarm:hover, .theme-ocean #reset-stopwatch:hover, .theme-ocean #reset-timer:hover {
+    background: linear-gradient(135deg, #ff4757, #b33213);
+}
+.theme-ocean .center-dot {
+    background: #0d47a1;
+}
+.theme-ocean .hour-hand, .theme-ocean .minute-hand {
+    background: #0d47a1;
+}
+.theme-ocean .time-zone-button:hover {
+    background-color: #48c6ef;
+    border-color: #ccc;
+    transform: scale(1.06);
+    color: rgb(0, 0, 0);
+  }
+  
+ .theme-ocean .time-zone-button.active {
+    background-color:#32409a;
+    color: #fff;
+    border-color: #32409a;
+  }
+
+/* Forest Gradient */
+.clock.theme-forest {
+    background: linear-gradient(135deg, #a8e063, #56ab2f, #2e7d32);
+    border-color: #a8e063;
+    color: white;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.theme-forest .alarm-container, .theme-forest .stopwatch-container, .theme-forest .timer-container{
+    border-color: #56ab2f;
+}
+
+.theme-forest .alarm-container button, .theme-forest .stopwatch-container button, .theme-forest .timer-container button {
+    background: linear-gradient(135deg, #56ab2f, #2e7d32);
+    color: white;
+}
+
+.theme-forest .alarm-container button:hover, .theme-forest .stopwatch-container button:hover, .theme-forest .timer-container button:hover {
+    background: linear-gradient(135deg, #56ab2f, #276829);
+}
+
+.theme-forest #cancel-alarm,.theme-forest #reset-stopwatch, .theme-forest #reset-timer  {
+    background: linear-gradient(135deg, #ff4757, #c23616);
+}
+
+.theme-forest #cancel-alarm:hover, .theme-forest #reset-stopwatch:hover, .theme-forest #reset-timer:hover {
+    background: linear-gradient(135deg, #ff4757, #b33213);
+}
+.theme-forest .time-zone-button:hover {
+    background-color: #a8e063;
+    border-color: #ccc;
+    transform: scale(1.06);
+    color: rgb(0, 0, 0);
+  }
+  
+ .theme-forest .time-zone-button.active {
+    background-color:#276829;
+    color: #fff;
+    border-color: #276829;
+  }
+/* Brushed Metal */
+.clock.theme-brushed-metal {
+    background: linear-gradient(to right, #CCC 0%, #EEE 10%, #DDD 20%, #CCC 30%, #EEE 40%, #DDD 50%, #CCC 60%, #EEE 70%, #DDD 80%, #CCC 90%, #EEE 100%);
+    border-color: #999;
+    color: #333;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+}
+.theme-brushed-metal .alarm-container, .theme-brushed-metal .stopwatch-container, .theme-brushed-metal .timer-container{
+    border-color: #999;
+}
+.theme-brushed-metal .alarm-container button, .theme-brushed-metal .stopwatch-container button, .theme-brushed-metal .timer-container button{
+    background: linear-gradient(to right, #CCC, #999);
+    color: #333;
+    border: 1px solid #777;
+    text-shadow: 1px 1px 1px white;
+}
+
+.theme-brushed-metal .alarm-container button:hover, .theme-brushed-metal .stopwatch-container button:hover, .theme-brushed-metal .timer-container button:hover {
+    background: linear-gradient(to right, #BBB, #888);
+}
+
+.theme-brushed-metal #cancel-alarm, .theme-brushed-metal #reset-stopwatch , .theme-brushed-metal #reset-timer  {
+    background: linear-gradient(to right, #cc9999, #aa7777);
+}
+
+.theme-brushed-metal #cancel-alarm:hover, .theme-brushed-metal #reset-stopwatch:hover , .theme-brushed-metal #reset-timer:hover {
+    background: linear-gradient(to right, #bb8888, #996666);
+}
+.theme-brushed-metal .time-zone-button:hover {
+    background-color: #999;
+    border-color: #ccc;
+    transform: scale(1.06);
+    color: whitesmoke;
+  }
+  
+ .theme-brushed-metal .time-zone-button.active {
+    background-color:#534f4f;
+    color: #fff;
+    border-color: #534f4f;
+  }
+
+/* Neumorphic */
+.clock.theme-neumorphic {
+    background-color: #e0e5ec;
+    border: none;
+    box-shadow: 9px 9px 16px rgba(163, 177, 198, 0.6), 
+                -9px -9px 16px rgba(255, 255, 255, 0.502);
+    color: #505a6c;
+}
+.theme-neumorphic .alarm-container, .theme-neumorphic .stopwatch-container, .theme-neumorphic .timer-container{
+    border-color: #505a6c;
+}
+.theme-neumorphic .alarm-container button, .theme-neumorphic .stopwatch-container button, .theme-neumorphic .timer-container button {
+    background-color: #e0e5ec;
+    color: #4e7ef5;
+    border: none;
+    box-shadow: 3px 3px 6px rgba(163, 177, 198, 0.5), 
+                -3px -3px 6px rgba(255, 255, 255, 0.5);
+                
+}
+
+.theme-neumorphic .alarm-container button:hover, .theme-neumorphic .stopwatch-container button:hover, .theme-neumorphic .timer-container button:hover {
+    background-color: #d1d9e6; /* Slightly darker for press effect */
+    color: #4e7ef5; /* Keep text color visible */
+    box-shadow: inset 3px 3px 6px rgba(163, 177, 198, 0.5), 
+                inset -3px -3px 6px rgba(255, 255, 255, 0.5);
+}
+
+.theme-neumorphic #cancel-alarm, .theme-neumorphic #reset-stopwatch, .theme-neumorphic #reset-timer {
+    color: #120302;
+}
+.theme-neumorphic .time-zone-button:hover {
+    background-color: #e0e5ec;
+    border-color: #ccc;
+    transform: scale(1.06);
+  }
+  
+ .theme-neumorphic .time-zone-button.active {
+    background-color:#505a6c;
+    color: #fff;
+    border-color: #505a6c;
+  }
+
+
+/* Neon Theme */
+.clock.theme-neon {
+    background-color: #000;
+    border-color: #00e5ff;
+    box-shadow: 0 0 10px #00e5ff, inset 0 0 20px #00e5ff;
+    color: #00e5ff;
+    text-shadow: 0 0 1px #00e5ff, 0 0 10px #00e5ff;
+}
+.theme-neon .alarm-container, .theme-neon .stopwatch-container, .theme-neon .timer-container{
+    border-color: #000;
+}
+.theme-neon .alarm-container button, .theme-neon .stopwatch-container button, .theme-neon .timer-container button {
+    background-color: transparent;
+    color: #000000;
+    border: 2px solid #00e5ff;
+    box-shadow: 0 0 2px #00e5ff;
+    text-shadow: 0 0 2px #00e5ff;
+}
+.theme-neon .number{
+    box-shadow: 0px 0px 5px #00e5ff;
+}
+
+.theme-neon .digital-clock { 
+    color: #000;
+    background-color: #0000000b;
+}
+
+.theme-neon .hour-hand, .theme-neon .minute-hand {
+    background: linear-gradient(to right,#0bbfd3, #035677);;
+}
+
+.theme-neon .center-dot {
+    background: #00e5ff;
+}
+
+
+.theme-neon .alarm-container button:hover, .theme-neon .stopwatch-container button:hover, .theme-neon .timer-container button:hover{
+    background-color: rgba(0, 229, 255, 0.2);
+}
+
+.theme-neon #cancel-alarm, .theme-neon #reset-stopwatch, .theme-neon #reset-timer {
+    color: #000000;
+    border: 2px solid #ff0000;
+    box-shadow: 0 0 5px #ff0000;
+    text-shadow: 0 0 2px #ff0000;
+}
+
+.theme-neon #cancel-alarm:hover, .theme-neon #reset-stopwatch:hover, .theme-neon #reset-timer:hover{
+    background-color: rgba(255, 0, 255, 0.2);
+}
+
+.theme-neon .time-zone-button:hover {
+    background-color: #00e5ff;
+    border-color: #ccc;
+    transform: scale(1.06);
+    color: rgb(0, 0, 0);
+  }
+  
+ .theme-neon .time-zone-button.active {
+    background-color:#000000;
+    color: #fff;
+    border-color: #000000;
+  }
+
+
+/* Winter Theme */
+.clock.theme-winter {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb, #90caf9);
+    
+    background-image: 
+        radial-gradient(circle at 10% 10%, white 5px, transparent 20px),
+        radial-gradient(circle at 30% 40%, white 3px, transparent 15px),
+        radial-gradient(circle at 70% 20%, white 2px, transparent 10px),
+        radial-gradient(circle at 90% 60%, white 1px, transparent 5px),
+        radial-gradient(circle at 50% 80%, white 1px, transparent 5px);
+    background-size: 200px 200px;
+    border-color: white;
+    color: #1565c0;
+    box-shadow: 0px 0px 100px rgba(144, 202, 249, 0.6);
+}
+.theme-winter .alarm-container, .theme-winter .stopwatch-container, .theme-winter .timer-container{
+    border-color: #42a5f5;
+}
+
+.theme-winter .alarm-container button, .theme-winter .stopwatch-container button, .theme-winter .timer-container button {
+    background: linear-gradient(to bottom, #64b5f6, #42a5f5);
+    color: white;
+    border: 1px solid #1e88e5;
+}
+
+.theme-winter .alarm-container button:hover, .theme-winter .stopwatch-container button:hover, .theme-winter .timer-container button:hover {
+    background: linear-gradient(to bottom, #42a5f5, #2196f3);
+}
+
+.theme-winter #cancel-alarm, .theme-winter #reset-stopwatch , .theme-winter #reset-timer  {
+    background: linear-gradient(to bottom, #ef9a9a, #e57373);
+}
+
+.theme-winter #cancel-alarm:hover, .theme-winter #reset-stopwatch:hover , .theme-winter #reset-timer:hover  {
+    background: linear-gradient(to bottom, #e57373, #ef5350);
+}
+
+.theme-winter .hour-hand, .theme-winter .minute-hand{
+    background-color: #1565c0;
+    border-radius: 50px;
+}
+.theme-winter .second-hand {
+    border-radius: 50px;
+}
+.theme-winter .center-dot {
+    background-color: red;
+}
+
+.theme-winter .time-zone-button:hover {
+    background-color: #64b5f6;
+    border-color: #ccc;
+    transform: scale(1.06);
+  }
+  
+ .theme-winter .time-zone-button.active {
+    background-color:#2196f3;
+    color: #fff;
+    border-color: #2196f3;
+  }
+
+/* THEME END */
+
+
+  
+ /* General styling */
+ body {
+    font-family: Arial,;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Time Zones Container */
+  .time-zones-container {
+    /* width: 810px; */
+    height: 60px; 
+    position: fixed; 
+    top: 20px; 
+    right: 20px; 
+    background: rgba(255, 255, 255, 0.8);;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; 
+  }
+  
+  .section-header {
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #000000;
+  }
+  
+  .time-zone-options {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+  
+  .time-zone-button {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    color: #556;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  .time-zone-button:hover {
+    background-color: #f9f9f9;
+    border-color: #ccc;
+    transform: scale(1.06);
+  }
+  
+  .time-zone-button.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+  }
+
+
+
+
+.stopwatch-container, .timer-container {
+    margin-top: 20px;
+    margin-left: 3%;
+    padding: 15px;
+    border: 8px solid #000000;
+    border-radius: 10px;
+    background-color: #aea7a752;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
+    text-align: center;
+    transition: all 0.5s ease;
+}
+
+.stopwatch-container button, 
+.timer-container button, 
+.timer-container select {
+    margin: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+/* Button styling same as Alarm box */
+.stopwatch-container button, 
+.timer-container button {
+    cursor: pointer;
+    background-color: #aaacaaf6;
+    color: white;
+    border: none;
+}
+
+.stopwatch-container button:hover, 
+.timer-container button:hover {
+    background-color: #000000;
+}
+
+#reset-stopwatch, #reset-timer {
+    background-color: #f44336;
+}
+
+#reset-stopwatch:hover, #reset-timer:hover {
+    background-color: #d32f2f;
+}
+
+.time-display {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.time-picker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+

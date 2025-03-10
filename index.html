@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Clock</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="theme-selector">
+        <h3>Themes</h3>
+        <div class="theme-buttons">
+            <div class="theme-button theme-classic active" onclick="setTheme('classic')" title="Classic"></div>
+            <div class="theme-button theme-dark" onclick="setTheme('dark')" title="Dark"></div>
+            <div class="theme-button theme-purple" onclick="setTheme('purple')" title="Purple"></div>
+            <div class="theme-button theme-wood" onclick="setTheme('wood')" title="Wood"></div>
+            <div class="theme-button theme-sunset" onclick="setTheme('sunset')" title="Sunset"></div>
+            <div class="theme-button theme-ocean" onclick="setTheme('ocean')" title="Ocean"></div>
+            <div class="theme-button theme-forest" onclick="setTheme('forest')" title="Forest"></div>
+            <div class="theme-button theme-neon" onclick="setTheme('neon')" title="Neon"></div>
+            <div class="theme-button theme-neumorphic " onclick="setTheme('neumorphic ')" title="neumorphic "></div>
+            <div class="theme-button theme-brushed-metal" onclick="setTheme('brushed-metal')" title="Brushed-metal"></div>
+            <div class="theme-button theme-winter" onclick="setTheme('winter')" title="Winter"></div>
+        </div>
+    </div>
+
+    <div class="time-zones-container">
+        <div class="section-header">Time Zones</div>
+        <div class="time-zone-options">
+          <div class="time-zone-button tz-ist active" onclick="setTimezone('Asia/Kolkata')" data-tooltip="Asia/Kolkata">IST [ Asia / Kolkata ]</div>
+          <div class="time-zone-button tz-est" onclick="setTimezone('America/New_York')" data-tooltip="America/New_York">EST [ America / NewYork ]</div>
+          <div class="time-zone-button tz-gmt" onclick="setTimezone('Europe/London')" data-tooltip="Europe/London">GMT [ Europe / London ]</div>
+          <div class="time-zone-button tz-jst" onclick="setTimezone('Asia/Tokyo')" data-tooltip="Asia/Tokyo">JST  [ Asia / Tokyo ]</div>
+          <div class="time-zone-button tz-aedt" onclick="setTimezone('Australia/Sydney')" data-tooltip="Australia/Sydney">AET [ Australia / Sydney ]</div>
+        </div>
+      </div>
+    
+    <div class="clock theme-classic">
+        <div class="clock-face">
+            <div class="number number1">1</div>
+            <div class="number number2">2</div>
+            <div class="number number3">3</div>
+            <div class="number number4">4</div>
+            <div class="number number5">5</div>
+            <div class="number number6">6</div>
+            <div class="number number7">7</div>
+            <div class="number number8">8</div>
+            <div class="number number9">9</div>
+            <div class="number number10">10</div>
+            <div class="number number11">11</div>
+            <div class="number number12">12</div>
+            <div class="hand hour-hand" id="hour-hand"></div>
+            <div class="hand minute-hand" id="minute-hand"></div>
+            <div class="hand second-hand" id="second-hand"></div>
+            <div class="center-dot"></div>
+        </div>
+        
+        <div class="digital-clock" id="digital-clock">00:00:00</div>
+    </div>
+
+    
+
+    <div class="alarm-container">
+        <h3>Set Alarm</h3>
+        <select id="alarm-hour"></select> : 
+        <select id="alarm-minute"></select>
+        <select id="alarm-period">
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
+        </select>
+        <button onclick="setAlarm()">Set Alarm</button>
+        <button id="cancel-alarm" onclick="cancelAlarm()" style="display: none;">Cancel Alarm</button>
+        <div id="alarm-time-display"></div>
+        <audio id="alarm-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3"></audio>
+    </div>
+
+    <!-- Stopwatch Box -->
+    <div class="stopwatch-container">
+        <h3>Stopwatch</h3>
+        <div class="time-display" id="stopwatch-display">00:00:00</div>
+        <button id="start-stopwatch" onclick="startStopwatch()">Start</button>
+        <button id="pause-stopwatch" onclick="pauseStopwatch()">Pause</button>
+        <button id="reset-stopwatch" onclick="resetStopwatch()">Reset</button>
+    </div>
+
+    <!-- Timer Box -->
+    <div class="timer-container">
+        <h3>Set Timer</h3>
+        <div class="time-picker">
+            <select id="hours"></select>
+            <span>:</span>
+            <select id="minutes"></select>
+            <span>:</span>
+            <select id="seconds"></select>
+        </div>
+        <div class="time-display" id="timer-display">00:00:00</div>
+        <button id="start-timer" onclick="startTimer()">Start</button>
+        <button id="pause-timer" onclick="pauseTimer()">Pause</button>
+        <button id="reset-timer" onclick="resetTimer()">Reset</button>
+    </div>
+    
+    
+    
+    
+    <script src="script.js" defer></script>
+</body>
+</html>
