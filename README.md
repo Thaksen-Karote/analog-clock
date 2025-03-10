@@ -14,10 +14,10 @@ A stylish **Analog & Digital Clock** with customizable themes, time zones, and b
 - **HTML, CSS, JavaScript**  
 
 ## 📷 Preview  
-![Clock Preview](clock.png) *(Upload a screenshot in your repo & update the link)*  
+![Clock Preview](clock.png)   
 
 ## 🔥 Live Demo  
-[View on GitHub Pages]( https://thaksen-karote.github.io/analog-clock/) *(Update this after hosting)*  
+[View on GitHub Pages]( https://thaksen-karote.github.io/analog-clock/) 
 
 ## 📦 Installation  
 1. Clone the repository:  
