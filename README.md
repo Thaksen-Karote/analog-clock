@@ -22,4 +22,4 @@ A stylish **Analog & Digital Clock** with customizable themes, time zones, and b
 ## 📦 Installation  
 1. Clone the repository:  
    ```sh
-   git clone https://github.com/YOUR_USERNAME/analog-clock.git
+   git clone https://github.com/thaksen-karote/analog-clock.git
